@@ -1,0 +1,24 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+        <link href="{% static 'css/blog.css' %}" rel="stylesheet"> 
+
+    </head>
+    <body>
+        <div id='content'>
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div id='sidebar'>
+            <h2>Shrek's Swamp</h2>
+            <p>This is where you'll write shit about your blog like what is it about and what can people find here etc etc. or write whatever you want idc. Just remember that it's gonna be displayed on every single page you visit.
+             I'm just writing this to fill the gap so that i can see how stuff looks.. so don't even bother reading this. Well ig it's too late for that now. <br><br>Also dont click on this <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">link</a></p>
+        
+        </div>
+
+    </body>
+</html>
