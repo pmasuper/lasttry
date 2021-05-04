@@ -1,13 +1,42 @@
+<style>
+    .button {
+      background-color: #4CAF50; /* Green */
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      
+    }
+
+.button2 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+  width: 100px;
+}
+
+.button2:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+</style>
 <div class='pagination'>
     <span class='step-links'>
         {% if page.has_previous %}
-        <a href="?page={{ page.previous_page_number }}">Previous</a>
+        <a href="?page={{ page.previous_page_number }}"><button class="button button2">Previous</button></a>
         {% endif %}
     <span class='current'>
         Page {{ page.number }} of {{ page.paginator.num_pages }}
     </span>
         {% if page.has_next %}
-        <a href="?page={{ page.next_page_number }}">Next</a>
+        <a href="?page={{ page.next_page_number }}"><button class="button button2">Next</button></a>
         {% endif %}
     </span>
 
