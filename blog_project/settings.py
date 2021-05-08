@@ -89,6 +89,22 @@ DATABASES = {
     }
 }
 
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'demo_test',
+#         'USER':'postgres',
+#         'PASSWORD':'Persiantigerboss45',
+#         'HOST': 'localhost',
+#         'PORT':'5432',
+#     }
+# }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
