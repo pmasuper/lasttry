@@ -12,6 +12,7 @@ markdown = "==3.2.1"
 pillow = "*"
 psycopg2 = "*"
 dj-database-url = "*"
+django-crispy-forms = "==1.8.1"
 
 [dev-packages]
 

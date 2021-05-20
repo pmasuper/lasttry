@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from taggit.managers import TaggableManager
+from django.conf import settings
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
@@ -14,7 +15,7 @@ class Post(models.Model):
                       )
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique_for_date='publish')
-    author = models.ForeignKey(User,on_delete=models.CASCADE,related_name='blog_posts')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='blog_posts')
     body = models.TextField()
     image = models.ImageField(blank=True, null=True)
     # hello = models.TextField()
@@ -53,4 +54,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comment by {self.name} on {self.post}'
+
+
 

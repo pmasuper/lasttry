@@ -1,0 +1,100 @@
+{% load blog_tags %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <link href="{% static 'css/blog.css' %}" rel="stylesheet"> 
+
+    </head>
+    <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+<p class="navbar-brand">Name of Blog</p>
+<button class="navbar-toggler" type="button" data-toggle="collapse"
+data-target="#navbarCollapse" aria-controls="navbarCollapse"
+aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarCollapse">
+{% if user.is_authenticated %}
+<ul class="navbar-nav ml-auto">
+<li class="nav-item">
+<a class="nav-link dropdown-toggle" href="#" id="userMenu"
+data-toggle="dropdown" aria-haspopup="true"
+aria-expanded="false">
+{{ user.username }}
+</a>
+<div class="dropdown-menu dropdown-menu-right"
+aria-labelledby="userMenu">
+<a class="dropdown-item"
+href="{% url 'password_change'%}">Change password</a>
+<div class="dropdown-divider"></div>
+<a class="dropdown-item" href="{% url 'logout' %}">
+Log Out</a>
+</div>
+</li>
+</ul>
+{% else %}
+<form class="form-inline ml-auto">
+<a href="{% url 'login' %}" class="btn btn-outline-secondary">
+Log In</a>
+<a href="{% url 'signup' %}" class="btn btn-primary ml-2">
+Sign up</a>
+</form>
+{% endif %}
+</div>
+</nav>
+
+
+        <div id='sidebar'>
+            <h2>Shrek's Swamp</h2>
+            <p>This is where you'll write shit about your blog like what is it about and what can people find here etc etc. or write whatever you want idc. Just remember that it's gonna be displayed on every single page you visit.
+             I'm just writing this to fill the gap so that i can see how stuff looks.. so don't even bother reading this. Well ig it's too late for that now. <br><br>Also dont click on this <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">link</a> a</p>
+             <p>I've written {% total_posts %} blogs so far...</p>
+             <p>
+                <a href="{% url 'blog:post_feed' %}">This is my RSS feed</a>
+            </p>
+             <h3>Latest Posts</h3>
+             {% show_latest_posts 3 %}
+
+             <h3>Most Commented Posts</h3>
+             {% get_most_commented_post as most_commented_posts %}
+             <ul>
+                 {% for post in most_commented_posts %}
+                 <li>
+                     <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                 </li>
+                 {% endfor %}
+             </ul>
+        </div>
+
+
+<div class="container">
+{% block content %}
+{% endblock content %}
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4\
+YfRvH+8abtTE1Pi6jizo"
+crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/\
+1.14.3/
+umd/popper.min.js"
+integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbB\
+JiSnjAK/
+l8WvCWPIPm49"
+crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/\
+js/bootstrap.min.js"
+integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ\
+6OW/JmZQ5stwEULTy"
+crossorigin="anonymous"></script>
+
+
+    </body>
+</html>
