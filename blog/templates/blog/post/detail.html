@@ -13,11 +13,28 @@
     Published {{ post.publish }} by {{ post.author }}
 </p>
 {{ post.body|markdown }}
-<p>
+<!-- <p>
     <a href="{% url 'blog:post_share' post.id %}">
         Share this post
     </a>
-</p>
+</p> -->
+<p>Share on social media</p>
+
+<a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+    Share on Facebook
+    </a>
+</br>
+<a href="https://twitter.com/intent/tweet?text={{share_string}}%20{{ request.build_absolute_uri }}">
+    Share on Twitter
+    </a>
+</br>
+    <a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}&title={{share_string}}">
+        Share on Reddit
+    </a>
+</br>
+{% if post.image %}
+<a data-pin-do="buttonBookmark" href="//www.pinterest.com/pin/create/button/"><img src="{{ post.image.url }}" /></a>
+{% endif %}
 
 <h2>Similar Posts</h2>
 {% for post in similar_posts %}

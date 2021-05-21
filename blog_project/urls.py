@@ -20,6 +20,7 @@ from blog.sitemaps import PostSitemap
 from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic.base import TemplateView
+from django.contrib.auth import views as auth_views
 
 sitemaps = {'posts':PostSitemap,}
 
@@ -30,4 +31,5 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')), 
     path('sitemap.xml', sitemap, {'sitemaps':sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

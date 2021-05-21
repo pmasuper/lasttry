@@ -6,6 +6,8 @@ from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
 from taggit.models import Tag
 from django.db.models import Count
+from urllib.parse import quote_plus
+from django.core.mail import send_mail
 
 class PostListView(ListView):
     queryset = Post.published.all()
@@ -39,9 +41,12 @@ def post_list(request, tag_slug=None):
 
 
 def post_detail(request, year, month, day, post):
+
     post = get_object_or_404(Post, slug=post, status='published',
                              publish__year=year, publish__month=month,
                              publish__day=day)
+    
+    share_string = quote_plus(post.title)
 
     comments = post.comments.filter(active=True)
     new_comment = None
@@ -59,7 +64,7 @@ def post_detail(request, year, month, day, post):
     similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
     similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags','-publish')[:4]
     
-    return render(request, 'blog/post/detail.html', {'post':post, 'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form, 'similar_posts':similar_posts})
+    return render(request, 'blog/post/detail.html', {'post':post, 'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form, 'similar_posts':similar_posts, 'share_string':share_string})
 
 
 def post_share(request, post_id):
@@ -77,5 +82,33 @@ def post_share(request, post_id):
     else:
         form = EmailPostForm()
     return render(request, 'blog/post/share.html', {'post': post, 'form': form, 'sent': sent})
+
+
+def blog_search(request):
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        posts = Post.objects.filter(title__contains=searched)
+
+        return render(request, 'blog/blog_search.html', {'searched':searched, 'posts':posts})
+    else:
+        return render(request, 'blog/blog_search.html', {})
+
+def contact(request):
+    if request.method == 'POST':
+        message_name = request.POST['message-name']
+        message_email = request.POST['message-email']
+        message = request.POST['message']
+
+        #send mail
+        send_mail(
+            'message from ' + message_name + ' their email ' + message_email ,
+            message, 
+            message_email, 
+            ['pmasuper34@gmail.com'],
+        )
+
+        return render(request, 'blog/contact.html', {'message_name':message_name})
+    else:
+        return render(request, 'blog/contact.html', {})
 
 

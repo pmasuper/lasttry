@@ -6,11 +6,18 @@
 {% block title %}My Blog{% endblock %}
 
 {% block content %} 
-
+<p><br></p>
+<form method='POST' action="blog_search">
+  {% csrf_token %}
+  <input type='search' placeholder="search post" aria-label="Search" name="searched">
+  <button type='submit'>Search</button>
+</form>
+<br>
 {% if user.is_authenticated %}
 Hi {{ user.username }}!
 
 <p><a href="{% url 'logout' %}">Log Out</a></p>
+<a href="{% url 'password_change' %}">Change your Password</a>
 {% else %}
 <p>You are not logged in</p>
 <a href="{% url 'login' %}">Log In</a> |
