@@ -1,0 +1,49 @@
+
+{% load static %}
+
+<link href="{% static 'lists/layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="wrapper row3">
+  <main class="hoc container clear"> 
+    <!-- main body -->
+    <!-- ################################################################################################ -->
+
+    <div class="sectiontitle">
+      <br><br><br>
+      <h6 class="heading">Recent Posts</h6>
+      <p>Here are some of the recent posts by the author.</p>
+    </div>
+
+
+    <ul class="nospace group overview">
+      {% for post in posts %}
+      {% if not forloop.first %}
+      <li class="one_third">
+        <figure><a href="{{ post.get_absolute_url }}"><img src="{{ post.image.url }}" alt="{{ post.image.name }}"></a>
+          <figcaption>
+            <h6 class="heading">{{ post.title }}</h6>
+            <p>{{ post.body| truncatewords:10 }}</p>
+          </figcaption>
+        </figure>
+      </li>
+      {% endif %}
+      {% endfor %}
+
+    </ul>
+    <!-- ################################################################################################ -->
+    <!-- / main body -->
+    <div class="clear"></div>
+  </main>
+</div>
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+
+<a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
+<!-- JAVASCRIPTS -->
+<script src="{% static 'lists/layout/scripts/jquery.min.js' %}"></script>
+<script src="{% static 'lists/layout/scripts/jquery.backtotop.js' %}"></script>
+<script src="{% static 'lists/layout/scripts/jquery.mobilemenu.js' %}"></script>

@@ -24,10 +24,8 @@ def post_list(request, tag_slug=None):
         tag = get_object_or_404(Tag, slug=tag_slug)
         object_list = object_list.filter(tags__in=[tag])
 
-    paginator = Paginator(object_list,3)
-    page = request.GET.get('page')
 
-    paginator = Paginator(object_list,3)
+    paginator = Paginator(object_list,10)
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
@@ -36,8 +34,25 @@ def post_list(request, tag_slug=None):
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
 
+    if request.method == 'POST':
+        message_name = request.POST['message-name']
+        message_lname = request.POST['message-lname']
+        message_email = request.POST['message-email']
+        message = request.POST['message']
+
+    #send mail
+        send_mail(
+            'message from ' + message_name + ' ' + message_lname + ' their email ' + message_email ,
+            message, 
+            message_email, 
+            ['pmasuper34@gmail.com'],
+        )
+
+        return render(request, 'blog/post/list.html', {'page':page, 'posts':posts, 'tag':tag, 'message_name':message_name})
+    else:
+        return render(request, 'blog/post/list.html', {'page':page, 'posts':posts, 'tag':tag})
     
-    return render(request, 'blog/post/list.html', {'page':page, 'posts':posts, 'tag':tag})
+    
 
 
 def post_detail(request, year, month, day, post):
@@ -96,12 +111,13 @@ def blog_search(request):
 def contact(request):
     if request.method == 'POST':
         message_name = request.POST['message-name']
+        message_lname = request.POST['message-lname']
         message_email = request.POST['message-email']
         message = request.POST['message']
 
         #send mail
         send_mail(
-            'message from ' + message_name + ' their email ' + message_email ,
+            'message from ' + message_name + ' ' + message_lname + ' their email ' + message_email ,
             message, 
             message_email, 
             ['pmasuper34@gmail.com'],
@@ -110,5 +126,10 @@ def contact(request):
         return render(request, 'blog/contact.html', {'message_name':message_name})
     else:
         return render(request, 'blog/contact.html', {})
+
+
+def test(request):
+    first_post = Post.objects.get()
+    return render(request, 'blog/test.html', {'first_post':first_post})
 
 

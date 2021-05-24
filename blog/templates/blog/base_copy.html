@@ -1,16 +1,14 @@
 {% load blog_tags %}
 {% load static %}
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %}</title>
-        <link href="{% static 'css/blog.css' %}" rel="stylesheet"> 
+        <link href="{% static 'css1/blog.css' %}" rel="stylesheet"> 
+        <link href="{% static 'css1/style.css' %}" rel="stylesheet"> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         
 
         <style>
@@ -44,8 +42,42 @@
 
     </head>
     <body>
-        
+
+        <div class="navbar">
+            <a href="/">Home</a>
+            <a href="/contact.html">Contact</a>
+            <div class="dropdown">
+              <button class="dropbtn">Dropdown
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-content">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+              </div>
+            </div>
+          </div>
         <div id='content'>
+
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(e) {
+    if (!e.target.matches('.dropbtn')) {
+    var myDropdown = document.getElementById("myDropdown");
+    if (myDropdown.classList.contains('show')) {
+        myDropdown.classList.remove('show');
+    }
+    }
+}
+</script>
+
+<script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
             {% block content %}
             {% endblock %}
         

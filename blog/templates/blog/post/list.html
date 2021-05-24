@@ -5,14 +5,9 @@
 
 {% block title %}My Blog{% endblock %}
 
-{% block content %} 
+ 
 <p><br></p>
-<form method='POST' action="blog_search">
-  {% csrf_token %}
-  <input type='search' placeholder="search post" aria-label="Search" name="searched">
-  <button type='submit'>Search</button>
-</form>
-<br>
+
 {% if user.is_authenticated %}
 Hi {{ user.username }}!
 
@@ -20,6 +15,7 @@ Hi {{ user.username }}!
 <a href="{% url 'password_change' %}">Change your Password</a>
 {% else %}
 <p>You are not logged in</p>
+
 <a href="{% url 'login' %}">Log In</a> |
 <a href="{% url 'signup' %}">Sign Up</a>
 {% endif %}
@@ -31,6 +27,7 @@ Hi {{ user.username }}!
 <h2>Post tagged with "{{tag.name}}"</h2> 
 {% endif %}
 {% for post in posts %}
+
 <h2>
     <a href="{{ post.get_absolute_url }}">
         {{ post.title }}
@@ -228,4 +225,4 @@ span.onclick = function() {
 
 {% endfor %}
 {% include 'pagination.html' with page=posts %}
-{% endblock %}
+

@@ -5,6 +5,7 @@ from .feeds import LatestPostFeed
 app_name = 'blog'
 
 urlpatterns=[
+        path('test/', views.test, name='test'),
         path('', views.post_list, name='post_list'),
         path('contact.html', views.contact, name='contact'),
         # path('', views.PostListView.as_view(), name='post_list'),

@@ -1,108 +1,225 @@
 {% load blog_tags %}
 {% load static %}
 
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}{% endblock %}</title>
-        <link href="{% static 'css/blog.css' %}" rel="stylesheet"> 
-        <link href="{% static 'css/style.css' %}" rel="stylesheet"> 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 
-        <style>
-.button {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 8px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-}
+    <link rel="stylesheet" href="{% static 'menu2/fonts/icomoon/style.css' %}">
 
-.button1 {
-  background-color: white; 
-  color: black; 
-  border: 2px solid #4CAF50;
-}
+    <link rel="stylesheet" href="{% static 'menu2/css/owl.carousel.min.css' %}">
 
-.button1:hover {
-  background-color: #4CAF50;
-  color: white;
-}
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'menu2/css/bootstrap.min.css' %}">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'menu2/css/style.css' %}">
 
-</style>
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
 
 
-    </head>
-    <body>
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+   
+    
+    <header class="site-navbar js-sticky-header site-navbar-target" role="banner">
 
-        <div class="navbar">
-            <a href="/">Home</a>
-            <a href="/contact.html">Contact</a>
-            <div class="dropdown">
-              <button class="dropbtn">Dropdown
-                <i class="fa fa-caret-down"></i>
-              </button>
-              <div class="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-              </div>
-            </div>
+      <div class="container">
+        <div class="row align-items-center">
+          
+          <div class="col-6 col-xl-2">
+            <h1 class="mb-0 site-logo"><a href="/">BLOG NAME<span class="text-primary">.</span> </a></h1>
           </div>
-        <div id='content'>
 
-<script>
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
+          <div class="col-12 col-md-10 d-none d-xl-block">
+            <nav class="site-navigation position-relative text-right" role="navigation">
 
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(e) {
-    if (!e.target.matches('.dropbtn')) {
-    var myDropdown = document.getElementById("myDropdown");
-    if (myDropdown.classList.contains('show')) {
-        myDropdown.classList.remove('show');
-    }
-    }
-}
-</script>
+              <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li class="has-children">
+                  <a href="#about-section" class="nav-link">About Us</a>
+                  <ul class="dropdown">
+                    <li><a href="#team-section" class="nav-link">Team</a></li>
+                    <li><a href="#pricing-section" class="nav-link">Pricing</a></li>
+                    <li><a href="#faq-section" class="nav-link">FAQ</a></li>
+                    <li><a href="#gallery-section" class="nav-link">Gallery</a></li>
+                    <li><a href="#services-section" class="nav-link">Services</a></li>
+                    <li><a href="#testimonials-section" class="nav-link">Testimonials</a></li>
+                    <li class="has-children">
+                      <a href="#">More Links</a>
+                      <ul class="dropdown">
+                        <li><a href="#">Menu One</a></li>
+                        <li><a href="#">Menu Two</a></li>
+                        <li><a href="#">Menu Three</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                
+                
+                <li><a href="#blog-section" class="nav-link">Blog</a></li>
+                <li><a href="/contact.html" class="nav-link">Contact</a></li>
+                <li>
+                  <form name='search' method='POST' action="blog_search">
+                      {% csrf_token %}
+                      <input type='search' placeholder="search post" aria-label="Search" name="searched">
+                     
+                     <i class="fa fa-search"></i>
+                    </form>
+                    <p></p>
+                    <style>
+                      form[name="search"]{
+                          position: relative;
+                      
+                          left: 50%;
+                          transform: translate(-50%,90%);
+                          transition: all 1s;
+                          width: 25px;
+                          height: 25px;
+                          background: rgb(255, 255, 255);
+                          box-sizing: border-box;
+                          border-radius: 25px;
+                          border: 4px solid white;
+                          padding: 3px;
+                      }
+                      
+                      input[name^="searched"]{
+                          position: absolute;
+                          transform: translate(0%,0%);
+                          top: 0;
+                          left: 0;
+                          width: 100%;;
+                          height: 15.5px;
+                          line-height: 30px;
+                          outline: 0;
+                          border: 0;
+                          display: none;
+                          font-size: 1em;
+                          border-radius: 20px;
+                          padding: 0 20px;
+                      }
+                      
+                      .fa{
+                          transform: translate(30%,-18%);
+                          box-sizing: border-box;
+                          padding: 5px;
+                          width: 30.5px;
+                          height: 30.5px;
+                          position: absolute;
+                          top: 0;
+                          right: 0;
+                          border-radius: 50%;
+                          color: #07051a;
+                          text-align: center;
+                          font-size: 1.2em;
+                          transition: all 1s;
+                      }
+                      
+                      form:hover[name="search"]{
+                          width: 200px;
+                          cursor: pointer;
+                      }
+                      
+                      form:hover input{
+                          display: block;
+                      }
+                      
+                      form:hover .fa{
+                          background: #07051a;
+                          color: white;
+                      } 
+                      
+                      </style>
+              </li>
+              
+              
+  
 
-<script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
-            {% block content %}
-            {% endblock %}
-        
+               <li class="social"><a href="#" class="nav-link"><span></span></a></li>
+                <li class="social"><a href="http://www.facebook.com" class="nav-link"><span class="icon-facebook"></span></a></li>
+                <li class="social"><a href="http://www.twitter.com" class="nav-link"><span class="icon-twitter"></span></a></li>
+                <li class="social"><a href="http://www.linkedin.com" class="nav-link"><span class="icon-linkedin"></span></a></li>
+              </ul>
+            </nav>
+          </div>
+
+
+          <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle float-right"><span class="icon-menu h3"></span></a></div>
+
         </div>
-        <div id='sidebar'>
-            <h2>Shrek's Swamp</h2>
-            <p>This is where you'll write shit about your blog like what is it about and what can people find here etc etc. or write whatever you want idc. Just remember that it's gonna be displayed on every single page you visit.
-             I'm just writing this to fill the gap so that i can see how stuff looks.. so don't even bother reading this. Well ig it's too late for that now. <br><br>Also dont click on this <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">link</a> a</p>
-             <p>I've written {% total_posts %} blogs so far...</p>
-             <p>
-                <a href="{% url 'blog:post_feed' %}">This is my RSS feed</a>
-            </p>
-             <h3>Latest Posts</h3>
-             {% show_latest_posts 3 %}
+      </div>
+      
+    </header>
 
-             <h3>Most Commented Posts</h3>
-             {% get_most_commented_post as most_commented_posts %}
-             <ul>
-                 {% for post in most_commented_posts %}
-                 <li>
-                     <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-                 </li>
-                 {% endfor %}
-             </ul>
-        </div>
 
-    </body>
+    {% for post in posts %}
+    {% if forloop.first %}
+    <div class="hero">
+        <img src="{{post.image.url}}" alt="some random picture" style="height:680px;width:100%" usemap="#workmap">
+<map name="workmap">
+  <area shape="rect" coords="0,0,1800,680" alt="Computer" href="{{ post.get_absolute_url }}">">
+</map>
+</div>
+  {% endif %}
+  {% endfor %}
+  
+<style>
+.container-b{
+  position: relative;
+  text-align: left;
+  color: white;
+  transform: translate(5%,0%);
+  width: 80%;
+}
+.bottom-right-b {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
+</style>
+<div class="container-b">
+  <div class="bottom-right-b">
+    {% for post in posts %}
+    {% if forloop.first %}
+<h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
+<p>{{ post.body | truncatewords:70}}</p>
+
+  {% endif %}
+  {% endfor %}
+  </div>
+  </div>
+<br>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+{% include 'blog/test.html' %}
+
+       
+{% block content %}
+{% endblock %}
+{% include 'blog/contact2.html' %}
+
+    <script src="{% static 'menu2/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'menu2/js/popper.min.js' %}"></script>
+    <script src="{% static 'menu2/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'menu2/js/jquery.sticky.js' %}"></script>
+    <script src="{% static 'menu2/js/main.js' %}"></script>
+ 
+
+
+ 
+  </body>
 </html>
