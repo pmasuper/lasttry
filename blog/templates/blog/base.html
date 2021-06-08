@@ -50,29 +50,24 @@
 
               <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                 <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="#blog-section" class="nav-link">Book Reviews</a></li>
+                <li><a href="#blog-section" class="nav-link">About Me</a></li>
                 <li class="has-children">
-                  <a href="#about-section" class="nav-link">About Us</a>
+                  <a href="#about-section" class="nav-link">Join</a>
                   <ul class="dropdown">
-                    <li><a href="#team-section" class="nav-link">Team</a></li>
-                    <li><a href="#pricing-section" class="nav-link">Pricing</a></li>
-                    <li><a href="#faq-section" class="nav-link">FAQ</a></li>
-                    <li><a href="#gallery-section" class="nav-link">Gallery</a></li>
-                    <li><a href="#services-section" class="nav-link">Services</a></li>
-                    <li><a href="#testimonials-section" class="nav-link">Testimonials</a></li>
+                    <li><a href="users/signup" class="nav-link">Sign Up</a></li>
+                    <li><a href="users/login" class="nav-link">Log In</a></li>
                     <li class="has-children">
-                      <a href="#">More Links</a>
+                      <!-- <a href="#">More Links</a>
                       <ul class="dropdown">
                         <li><a href="#">Menu One</a></li>
                         <li><a href="#">Menu Two</a></li>
                         <li><a href="#">Menu Three</a></li>
-                      </ul>
+                      </ul> -->
                     </li>
                   </ul>
                 </li>
-                
-                
-                <li><a href="#blog-section" class="nav-link">Blog</a></li>
-                <li><a href="/contact.html" class="nav-link">Contact</a></li>
+                <li><a href="#" class="nav-link"></a></li>
                 <li>
                   <form name='search' method='POST' action="blog_search">
                       {% csrf_token %}
@@ -145,9 +140,9 @@
                       
                       </style>
               </li>
+              <li><a href="#" class="nav-link">|</a></li>
+            
               
-              
-  
 
                <li class="social"><a href="#" class="nav-link"><span></span></a></li>
                 <li class="social"><a href="http://www.facebook.com" class="nav-link"><span class="icon-facebook"></span></a></li>
@@ -165,29 +160,32 @@
       
     </header>
 
-
+    {% if 'lol' in this_url %}
     {% for post in posts %}
     {% if forloop.first %}
+
     <div class="hero">
-        <img src="{{post.image.url}}" alt="some random picture" style="height:680px;width:100%" usemap="#workmap">
+        <img src="{{post.image.url}}" alt="some random picture" style="height:100vh;width:100%" usemap="#workmap">
 <map name="workmap">
-  <area shape="rect" coords="0,0,1800,680" alt="Computer" href="{{ post.get_absolute_url }}">">
+  <area shape="rect" coords="0,0,1800,680" alt="Computer" href="{{ post.get_absolute_url }}">
 </map>
 </div>
   {% endif %}
   {% endfor %}
-  
+
+
+
 <style>
 .container-b{
   position: relative;
-  text-align: left;
+  text-align: justify;
   color: white;
   transform: translate(5%,0%);
   width: 80%;
 }
 .bottom-right-b {
   position: absolute;
-  bottom: 8px;
+  bottom: 6vh;
   right: 16px;
 }
 </style>
@@ -196,21 +194,24 @@
     {% for post in posts %}
     {% if forloop.first %}
 <h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
-<p>{{ post.body | truncatewords:70}}</p>
+<p>{{ post.body | truncatewords:35}}</p>
 
   {% endif %}
   {% endfor %}
   </div>
   </div>
-<br>
+  {% endif %}
+       
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-{% include 'blog/test.html' %}
-
-       
 {% block content %}
-{% endblock %}
+{% include 'blog/category.html' %}
+{% include 'blog/test.html' %}
 {% include 'blog/contact2.html' %}
+
+{% include 'blog/footer.html' %}
+{% endblock %}
+
 
     <script src="{% static 'menu2/js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'menu2/js/popper.min.js' %}"></script>

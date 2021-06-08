@@ -55,7 +55,6 @@ File: Layout CSS
 #pageintro article{display:block; max-width:75%;}
 #pageintro .heading{margin-bottom:20px; font-size:4rem;}
 #pageintro p:first-of-type{margin:0 0 20px 0; text-transform:uppercase; font-size:1.6rem; letter-spacing:5px;}
-#pageintro footer{margin-top:50px;}
 
 
 
@@ -135,7 +134,6 @@ File: Layout CSS
 #latest article .excerpt .meta li::after{margin-left:5px; content:"|";}
 #latest article .excerpt .meta li:last-child::after{margin:0; content:"";}
 #latest article .excerpt p{}
-#latest article .excerpt footer{margin-top:30px;}
 
 
 /* Click to Action
@@ -152,30 +150,6 @@ File: Layout CSS
 #cta ul li div span{display:block; padding:8px 0 0 0;}
 #cta ul li div span strong{display:block; text-transform:capitalize;}
 
-
-/* Footer
---------------------------------------------------------------------------------------------------------------- */
-#footer{padding:80px 0;}
-
-#footer .heading{margin-bottom:50px; font-size:1.2rem;}
-
-#footer h1{margin-bottom:40px; font-size:32px; font-weight:700;}
-#footer h1 span{font-size:4rem; font-weight:400;}
-
-#footer .linklist li{display:block; margin-bottom:15px; padding:0 0 15px 0; border-bottom:1px solid;}
-#footer .linklist li:last-child{margin:0; padding:0; border:none;}
-#footer .linklist li::before, #footer .linklist li::after{display:table; content:"";}
-#footer .linklist li, #footer .linklist li::after{clear:both;}
-
-#footer input, #footer button{border:1px solid;}
-#footer input{display:block; width:100%; padding:8px;}
-#footer button{padding:8px 18px 10px; text-transform:uppercase; font-weight:700; cursor:pointer;}
-
-
-/* Copyright
---------------------------------------------------------------------------------------------------------------- */
-#copyright{padding:20px 0;}
-#copyright *{margin:0; padding:0;}
 
 
 /* Transition Fade
@@ -370,16 +344,6 @@ input:focus, textarea:focus, *:required:focus{border-color:#56AED4;}
 #cta ul li div i{color:#4FB5F5; border-color:rgba(0,0,0,.1);}
 
 
-/* Footer */
-#footer .heading{color:#000000;}
-#footer hr, #footer .borderedbox, #footer .linklist li{border-color:rgba(0,0,0,.1);}
-
-#footer input, #footer button{border-color:transparent;}
-#footer input{color:#FFFFFF; background-color:#0E74A5;}
-#footer input:focus{border-color:#F7A804;}
-#footer button{color:#FFFFFF; background-color:#F7A804;}
-
-
 /* Navigation */
 #mainav{color:#FFFFFF; background-color:#F7A804;}
 #mainav li a{color:inherit;}
@@ -447,10 +411,6 @@ table a, #comments a{background-color:inherit;}
 	#comments input[type="reset"]{margin-top:10px;}
 	.pagination li{display:inline-block; margin:0 5px 5px 0;}
 
-	#footer{}
-
-	#copyright{}
-	#copyright p:first-of-type{margin-bottom:10px;}
 }
 
 @media screen and (max-width:750px){

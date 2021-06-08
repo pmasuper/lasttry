@@ -2,25 +2,78 @@
 
 
 {% load blog_tags %}
+{% load static %}
 
 
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
-<h1>{{ post.title }}</h1>
+
+<style>
+.backk{
+    background-color: #eee;
+}
+</style>
+
+
+<script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
+<center>
+    <br><br>
+    <h1>{{ post.title }}</h1>
+    <hr>
+    <br>
+    <img src="{{post.image.url}}" height="200px" width="auto">
+    <br><br>
+
 
 <p class='date'>
     Published {{ post.publish }} by {{ post.author }}
 </p>
+
+<style>
+    div.post_body{
+        width: 70%;
+        text-align: justify;
+    }
+        
+</style>
+<div class='post_body'>
+    <div class="container-c">
 {{ post.body|markdown }}
+</div>
+</div>
+
+
+
 <!-- <p>
     <a href="{% url 'blog:post_share' post.id %}">
         Share this post
     </a>
 </p> -->
-<p>Share on social media</p>
+<div class="backk">
 
-<a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+  <div class="hello">
+    <div class="content">
+        <button class="shareButton main">
+          <svg class="share" style="width:24px;height:24px" viewBox="0 0 24 24"><path d="M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12C9,11.76 8.96,11.53 8.91,11.3L15.96,7.19C16.5,7.69 17.21,8 18,8A3,3 0 0,0 21,5A3,3 0 0,0 18,2A3,3 0 0,0 15,5C15,5.24 15.04,5.47 15.09,5.7L8.04,9.81C7.5,9.31 6.79,9 6,9A3,3 0 0,0 3,12A3,3 0 0,0 6,15C6.79,15 7.5,14.69 8.04,14.19L15.16,18.34C15.11,18.55 15.08,18.77 15.08,19C15.08,20.61 16.39,21.91 18,21.91C19.61,21.91 20.92,20.61 20.92,19A2.92,2.92 0 0,0 18,16.08Z" /></svg>
+      <svg class="check" style="width:24px;height:24px" viewBox="0 0 24 24">    <path  d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" /></svg>
+      <svg class="close" style="width:24px;height:24px" viewBox="0 0 24 24">
+      <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
+        </button>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+        <button class="shareButton fb">
+          <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path d="M17,2V2H17V6H15C14.31,6 14,6.81 14,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4 0 0,1 14,2H17Z" /></svg></button>
+        </a>
+        <a href="https://twitter.com/intent/tweet?text={{share_string}}%20{{ request.build_absolute_uri }}">
+          <button class="shareButton tw">
+          <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path  d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z" /></svg></button>
+        </a>
+          <button class="shareButton ig">
+          <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path  d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" /></svg></button>
+      </div>
+    
+    </div>
+<!-- <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
     Share on Facebook
     </a>
 </br>
@@ -31,23 +84,16 @@
     <a href="http://www.reddit.com/submit?url={{ request.build_absolute_uri }}&title={{share_string}}">
         Share on Reddit
     </a>
-</br>
+</br> -->
 {% if post.image %}
 <a data-pin-do="buttonBookmark" href="//www.pinterest.com/pin/create/button/"><img src="{{ post.image.url }}" /></a>
 {% endif %}
+<br><br>
 
-<h2>Similar Posts</h2>
-{% for post in similar_posts %}
-<p>
-    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-</p>
-{% empty %}
-There are no similar posts here.
-{% endfor %}
 
-{% with comments.count as total_comments %}
+<!-- {% with comments.count as total_comments %}
 <h2>
-    {{ total_comments }} comment {{ total_comments|pluralize }}
+    {{ total_comments }} comment{{ total_comments|pluralize }}
 </h2>
 
 {% endwith %}
@@ -66,7 +112,7 @@ There are no similar posts here.
 {% endfor %}
 
 {% if new_comment %}
-<h2>Your coomment has been added</h2>
+<h2>Your comment has been added</h2>
 {% else %}
 
 {% if user.is_authenticated %}
@@ -74,10 +120,332 @@ There are no similar posts here.
 <form method="post">
     {{ comment_form.as_p }}
     {% csrf_token %}
-    <p><input type="submit" value="Add Comment"></p>
+    <p><input type="submit" value="Add Commentss"></p>
 </form>
 {% else %}
 <p>In order to comment you have to <a href='/users/login/'>sign in</a> first </p>
 {% endif %}
-{% endif %}
+{% endif %} -->
+</center>
+
+<style>
+/* share css */
+    @import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700");
+    .challenge {
+      width: 541px;
+      height: 22px;
+      position: absolute;
+      transform: rotate(-90deg);
+      top: 569.5px;
+      left: 755px;
+      transform-origin: 0 0;
+    }
+    .challenge .number {
+      float: right;
+    }
+    .challenge .daily {
+      float: left;
+    }
+    
+    .hello{
+      height: 20vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Roboto, sans-serif;
+      color: #fff;
+      font-size: 18px;
+      cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAAhFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAABqamrHx8e5ubnBwcHIyMjT09PLy8vPz8/MzMzW1tba2trY2Njd3d3j4+Pg4ODh4eHl5eXm5ubm5ubq6urq6urn5+fX19fr6+vu7u7o6Ojr6+vp6enn5+fp6enZ2dnb29vg4ODj4+Pb29vd3d3Y2Ni7xc8dAAAALHRSTlMAAQIDBAUGDCAhITM6Ozs8Pj5CRElKTE9RU1RVVllZWVpaXF5eZGRkZGlpb0QJKPIAAADPSURBVHjatZJZD4IwEIQtPZBDkPuQipzW8v//n8UQFkuMT8zrl53Mzu7pOCFkKCG0B4aBMSEYK6oTTChTogQvDAg1ff6S3DPpwoDYg+iaRy9G64vNZGqrIs+Lqp1sxWCImENbZmkcp1nZjiZZxxCmvrhlSRSGUZLdhEcxWv0Y74o0urpuEKVFx9nqaBAm6zwOXcdxwzivJSNbdNcRGPbKMNgaQoynHgPCjxB++ISHlS1Y+bysDEWNqqimE8NM0K5eKfkF6v1zFP2Uvx/gML0BQC8SZ10Cd14AAAAASUVORK5CYII=), auto;
+    }
+    
+    .content {
+      width: 600px;
+      height: 75px;
+      background: #FF7472;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+      border-radius: 5px;
+    }
+    .content .shareButton.main .share, .content .shareButton.main .close, .content .shareButton.main .check {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      transition: all 150ms;
+    }
+    .content .shareButton.main .share, .content .shareButton.main.open .close, .content .shareButton.main.sent .check {
+      transform: rotate(0) scale(1);
+      opacity: 1;
+    }
+    .content .shareButton.main .close, .content .shareButton.main.open .share, .content .shareButton.main .check, .content .shareButton.main.sent .share {
+      opacity: 0;
+      transform: rotate(90deg) scale(0);
+    }
+    
+    .shareButton, .shareButton.open {
+      border: none;
+      border-radius: 50%;
+      background: #fff;
+      padding: 1rem;
+      overflow: hidden;
+      outline: none;
+      margin: 0.5rem;
+      width: 24px;
+      height: 24px;
+      box-sizing: content-box;
+      transition: all 200ms;
+      position: relative;
+      opacity: 1;
+      transform: scale(1);
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAA81BMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB5eXnBwcHf39/Z2dna2trX19fa2trd3d3d3d3g4ODg4ODj4+Pj4+Pl5eXk5OTm5ubl5eXn5+fo6Ojp6enn5+fp6ens7Ozq6urr6+vr6+vt7e3s7Ozt7e3t7e3u7u7w8PDw8PDw8PDy8vLy8vLn5+f09PTn5+fy8vLn5+fp6enx8fHr6+vq6urs7Ozr6+vr6+vv7+/x8fHw8PDw8PDv7+/v7+/t7e3t7e3u7u7r6+vr6+vu7u7t7e3t7e3u7u7r6+vq6urq6urr6+vs7Ozr6+tWIAHaAAAAUXRSTlMAAQIDBAUGBwgJCgsVKVdYWVpaWltbZGRsbHFxdXV4foGBhIeJi4yQkJGUlpiZm5yenp+foKCnqaqqsbK0tba3w8TFxsbIydPU1dXb3N3d4uOSbqQHAAABdElEQVR42q2TbVOCQBSFg4UFAXtPJZVFQWRxUROj0jRR0UxL/v+vCQhdZ2zGL96vz86Ze885e3GuYfbzL2RZADgOAJY9fsCwgOOhEA/kOcAyR5QXREmORxIFPuOUclCU7/uLaBv2bmURcn+c0pwyXAYj3x9NVwMll3KqDHP5n8lT2yXEbXvBJp+DVJ8BvKh8v3eIg+0mdkhnvFFEHjB7aUEaTjotbJmGYVq41QneJCGWzzAvPiw9ght1HaFavYGJt7wW+R0GUHoO2o5VR1q1qqG65bTnPQmCHRbkxcjFpq49qqWyVjOxOwplIcNsjCOf2AaqqoWiWkVGk/jbGLOHuBnjUrGgVpBhEz9K8F48TMRrWllVy5q+E6er9afZapVstW68Gj3s7jM9rIaQnh72dZkcRm0ZBIe2zF4yW6ip49RUOzH1Y70zlUayCbwsktmaRkIDHazmSaDz1SsN9LAON70wisLuFa3DiTKdrOLpIh9/gzPNL7Z6NKvvS5JoAAAAAElFTkSuQmCC), auto;
+    }
+    .shareButton:hover, .shareButton.open:hover {
+      transform: scale(1.1) translateY(-3px);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+    }
+    .shareButton:active, .shareButton.open:active {
+      cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAdCAMAAABhTZc9AAABAlBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmZma5ubm4uLi8vLy6urrT09PU1NTS0tLS0tLT09PZ2dnY2Njb29vc3Nzd3d3g4ODf39/f39/h4eHa2trh4eHY2Nja2trg4ODa2tri4uLj4+PX19fZ2dnX19fk5OTl5eXl5eXn5+fo6Ojo6Ojm5ubp6enq6urs7Ozo6Ojt7e3u7u7v7+/p6eno6Ojp6enr6+vq6urq6urc3Nzb29vc3Nzm5ubm5ubk5OTl5eXk5OTm5ubd3d3e3t7d3d3e3t7f39/e3t7f39/e3t7e3t7d3d2Z9AvaAAAAVnRSTlMAAQIDBAUGBwgJCgsMDQ4PEBk+QUFDXV9gYWNscHB2eH2AgYaJiYqKiouLi4yMjY2Sk5WYmZqam52en6KisLGxsbKztre3v8DIyMnJ09PV1tfY4OXm50OBxC8AAAFqSURBVCjPjZPZSsNAFIY7WyZJXQpFLFpEn0IoxRbfW0VFUXwDwStRW6RKUUkyq2cmUxPXOJNcHL6c/6xBrb8O+mLaXygKhvXPZ4paCCFn2Za1dsEDBYQwXKAGrvugosAIJrikRhsdMFpAQmm/l1CVPdwppY3xGPkXA+PDzGQGJ4RcCMddbE8xpqw9mAmICLF59zSTCrzLOhCmNNmbaA3hvNE7EoBB21HQ5ePnXGorJWOIsKR9VoB2SQmJdjbnQonC+caMRp2bewFKvguEsl30UuhXr0yWCF+2l1I5y1EWjZ6EKHIoBGMS84h3ToSs6P5UirwAMQjD44itH9bphy9Q8I1Xa77f4q6oqxDX59zfhpxl7iiPIOfraci5rHc0z6p607RWL7SH8fFEufY4g2wcCLXoVdnndDgryj7H3eO86nOYERsYmWsaE3yu6jNy2o6vbaVUvd0+Agvj/8duNOxVw0427HPTv/DTeQcndQotgtF9KQAAAABJRU5ErkJggg==), auto;
+    }
+    .shareButton svg, .shareButton.open svg {
+      display: block;
+      fill: #FF7472;
+      width: 24px;
+      height: 24px;
+      opacity: 1;
+      transition: all 150ms;
+      transform: scale(1);
+    }
+    
+    .fb, .shareButton.open.ig {
+      transition-delay: 100ms;
+    }
+    
+    .tw, .shareButton.open.tw {
+      transition-delay: 50ms;
+    }
+    
+    .ig, .shareButton.open.fb {
+      transition-delay: 0ms;
+    }
+    
+    .fb, .tw, .ig {
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      padding: 0;
+      margin: 0;
+      opacity: 0;
+      transform: scale(0);
+    }
+    .fb svg, .tw svg, .ig svg {
+      width: 0;
+      height: 0;
+      opacity: 0;
+      transform: scale(0);
+    }
+    
+    </style>
+
+    <script>
+        // share js
+    const shareButton = document.querySelectorAll("button.shareButton");
+    
+    shareButton[0].addEventListener("click", (e) => {
+       for (let i = 0; i < shareButton.length; i++) {
+          shareButton[i].classList.toggle("open");
+          shareButton[0].classList.remove("sent");
+       }
+    });
+    
+    for (let i = 1; i < shareButton.length; i++) {
+       shareButton[i].addEventListener("click", (e) => {
+          for (let i = 0; i < shareButton.length; i++) {
+             shareButton[i].classList.toggle("open");
+          }
+          shareButton[0].classList.toggle("sent");
+       });
+    }
+    
+    </script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+<hr>
+<div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-center row">
+        <div class="d-flex flex-column col-md-8">
+            <div class="coment-bottom bg-white p-2 px-4">
+                <br>
+                {% with comments.count as total_comments %}
+                <h4>
+                    {{ total_comments }} comment{{ total_comments|pluralize }}
+                </h4>
+                {% endwith %}
+                {% if user.is_authenticated %}
+                <form method="POST">
+                    {% csrf_token %}
+                <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                        {{ comment_form }}
+                    <button class="btn btn-primary" type="submit">Comment</button></div>
+                </form>
+                {% else %}
+                <p>In order to comment you have to <a href='/users/login/'>log in</a> first </p>
+                {% endif %}
+                {% for comment in comments %}
+                <div class="commented-section mt-2">
+                    <div class="d-flex flex-row align-items-center commented-user">
+                        <h5 class="mr-2">{{ user.username }}</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">{{ comment.created }}</span>
+                    </div>
+                    <div class="comment-text-sm"><span>{{ comment.body }}</span></div>
+                </div>
+                <hr>
+                {% empty %}
+                <p>There are no comments yet.</p>
+                {% endfor %}
+         
+              
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+<style>
+    .bodily {
+    background-color: #eee
+}
+
+.bdge {
+    height: 21px;
+    background-color: orange;
+    color: #fff;
+    font-size: 11px;
+    padding: 8px;
+    border-radius: 4px;
+    line-height: 3px
+}
+
+.comments {
+    text-decoration: underline;
+    text-underline-position: under;
+    cursor: pointer
+}
+
+.dot {
+    height: 7px;
+    width: 7px;
+    margin-top: 3px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block
+}
+
+.hit-voting:hover {
+    color: blue
+}
+
+.hit-voting {
+    cursor: pointer
+}
+
+</style>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+
+<center>
+
+<h4>Related Posts</h4>
+<hr>
+<br><br>
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
+
+    
+
+<!-- Bootstrap core CSS -->
+<link href="{% static 'search_result/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+<!-- Additional CSS Files -->
+<link rel="stylesheet" href="{% static 'search_result/assets/css/fontawesome.css' %}">
+<link rel="stylesheet" href="{% static 'search_result/assets/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'search_result/assets/css/owl.css' %}">
+
+
+
+<section class="blog-posts grid-system">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="all-blog-posts">
+          <div class="row">
+
+        {% for post in similar_posts %}
+            <div class="col-lg-6">
+              <div class="blog-post">
+                <div class="blog-thumb">
+                  <img src="{{ post.image.url }}" alt="">
+                </div>
+                <div class="down-content">
+                  <a href="{{ post.get_absolute_url }}"><h4>{{ post.title}}</h4></a>
+                  
+                  <p> {{ post.body| truncatewords:15 }}</p>
+
+                  <ul class="post-info">
+                    <li><a href="#">{{ post.author }}</a></li>
+                    <li><a href="#">{{ post.publish }}</a></li>                      </ul>
+                </div>
+              </div>
+            </div>
+            {% empty %}
+            
+            <h3>There are no similar posts yet.</h3>
+            {% endfor %}
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+           
+<!-- Bootstrap core JavaScript -->
+<script src="{% static 'search_result/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'search_result/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+<!-- Additional Scripts -->
+<script src="{% static 'search_result/assets/js/custom.js' %}"></script>
+<script src="{% static 'search_result/assets/js/owl.js' %}"></script>
+<script src="{% static 'search_result/assets/js/slick.js' %}"></script>
+<script src="{% static 'search_result/assets/js/isotope.js' %}"></script>
+<script src="{% static 'search_result/assets/js/accordions.js' %}"></script>
+
+<script language = "{ % static 'search_result/text/Javascript' %}"> 
+  cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+  function clearField(t){                   //declaring the array outside of the
+  if(! cleared[t.id]){                      // function makes it static and global
+      cleared[t.id] = 1;  // you could use true and false, but that's more typing
+      t.value='';         // with more chance of typos
+      t.style.color='#fff';
+      }
+  }
+</script>
+</center>
+
+
+
+
+
+
+
+{% include 'blog/footer.html' %}
+
 {% endblock %}

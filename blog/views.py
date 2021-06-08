@@ -25,7 +25,7 @@ def post_list(request, tag_slug=None):
         object_list = object_list.filter(tags__in=[tag])
 
 
-    paginator = Paginator(object_list,10)
+    paginator = Paginator(object_list,7)
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
@@ -34,6 +34,13 @@ def post_list(request, tag_slug=None):
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
 
+    losts = posts[:3]
+    this_urls = request.get_full_path
+    if len(str(this_urls)) == 66:
+        this_url= 'lol'
+    else:
+        this_url = False
+        
     if request.method == 'POST':
         message_name = request.POST['message-name']
         message_lname = request.POST['message-lname']
@@ -48,9 +55,10 @@ def post_list(request, tag_slug=None):
             ['pmasuper34@gmail.com'],
         )
 
-        return render(request, 'blog/post/list.html', {'page':page, 'posts':posts, 'tag':tag, 'message_name':message_name})
+
+        return render(request, 'blog/post/list.html', {'page':page, 'posts':posts, 'tag':tag, 'message_name':message_name, 'losts':losts, 'this_url':this_url, 'this_urls':this_urls})
     else:
-        return render(request, 'blog/post/list.html', {'page':page, 'posts':posts, 'tag':tag})
+        return render(request, 'blog/post/list.html', {'page':page, 'posts':posts, 'tag':tag, 'losts':losts, 'this_url':this_url, 'this_urls':this_urls})
     
     
 
@@ -78,8 +86,12 @@ def post_detail(request, year, month, day, post):
     post_tags_ids = post.tags.values_list('id', flat=True)
     similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
     similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags','-publish')[:4]
-    
-    return render(request, 'blog/post/detail.html', {'post':post, 'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form, 'similar_posts':similar_posts, 'share_string':share_string})
+
+    post_image = post.image
+
+    this_url = request.get_full_path
+
+    return render(request, 'blog/post/detail.html', {'post':post, 'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form, 'similar_posts':similar_posts, 'share_string':share_string, 'post_image':post_image, 'this_url':this_url})
 
 
 def post_share(request, post_id):
@@ -103,6 +115,8 @@ def blog_search(request):
     if request.method == 'POST':
         searched = request.POST['searched']
         posts = Post.objects.filter(title__contains=searched)
+        
+        
 
         return render(request, 'blog/blog_search.html', {'searched':searched, 'posts':posts})
     else:
@@ -128,8 +142,97 @@ def contact(request):
         return render(request, 'blog/contact.html', {})
 
 
-def test(request):
+def test(request, tag_slug=None):
     first_post = Post.objects.get()
-    return render(request, 'blog/test.html', {'first_post':first_post})
+    object_list = Post.published.all()
+
+    tag = None
+
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        object_list = object_list.filter(tags__in=[tag])
+
+    return render(request, 'blog/test.html', {'first_post':first_post, 'tag':tag})
+
+
+def tagss(request, tag_slug=None):
+    object_list = Post.published.all()
+
+    tag = None
+
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        object_list = object_list.filter(tags__in=[tag])
+
+
+    paginator = Paginator(object_list,7)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
+    if request.method == 'POST':
+        message_name = request.POST['message-name']
+        message_lname = request.POST['message-lname']
+        message_email = request.POST['message-email']
+        message = request.POST['message']
+
+    #send mail
+        send_mail(
+            'message from ' + message_name + ' ' + message_lname + ' their email ' + message_email ,
+            message, 
+            message_email, 
+            ['pmasuper34@gmail.com'],
+        )
+
+        return render(request, 'blog/tags.html', {'page':page, 'posts':posts, 'tag':tag, 'message_name':message_name})
+    else:
+        return render(request, 'blog/tags.html', {'page':page, 'posts':posts, 'tag':tag})
+
+
+def category(request, tag_slug=None):
+    object_list = Post.published.all()
+
+    tag = None
+
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        object_list = object_list.filter(tags__in=[tag])
+
+
+    paginator = Paginator(object_list,7)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
+    losts = posts[:3]
+
+    if request.method == 'POST':
+        message_name = request.POST['message-name']
+        message_lname = request.POST['message-lname']
+        message_email = request.POST['message-email']
+        message = request.POST['message']
+
+    #send mail
+        send_mail(
+            'message from ' + message_name + ' ' + message_lname + ' their email ' + message_email ,
+            message, 
+            message_email, 
+            ['pmasuper34@gmail.com'],
+        )
+
+        return render(request, 'blog/category.html', {'page':page, 'posts':posts, 'tag':tag, 'message_name':message_name, 'losts':losts})
+    else:
+        return render(request, 'blog/category.html', {'page':page, 'posts':posts, 'tag':tag, 'losts':losts})
+    
+    
+
 
 

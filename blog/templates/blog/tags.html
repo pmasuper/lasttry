@@ -1,0 +1,73 @@
+
+{% extends 'blog/base.html' %}
+{% load static %}
+{% load blog_tags %}
+
+
+
+
+{% block content %}
+
+
+
+{% load static %}
+{% load blog_tags %}
+<head>
+<link href="{% static 'lists/layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+</head>
+<br><br><br><br>
+<body id="top">
+    <div class="sectiontitle">
+      <h6 class="heading">Posts related to {{ tag.name}}.</h6>
+      <p>Here are all the posts written so far.</p>
+    </div>
+    <div class="wrapper row2">
+        <section id="latest" class="hoc container clear"> 
+    <!-- ################################################################################################ -->
+  
+    <ul class="nospace group">
+        {% for post in posts %}
+
+        <li class="one_third">
+            <article>
+              <figure><a href="{{ post.get_absolute_url }}"><img src="{{ post.image.url }}" alt=""></a>
+                <figcaption>
+                  <p>{{post.publish}}
+                </figcaption>
+              </figure>
+              <div class="excerpt">
+                <h6 class="heading">{{ post.title }}</h6>
+                <ul class="nospace meta">
+               
+                  <li><i class="fas fa-user"></i> <a href="#">{{ post.author}}</a></li>
+                  
+                  <li><i class="fas fa-tags"></i> {% for tag in post.tags.all %}
+                    <a href="{% url 'blog:post_list_by_tag' tag.slug %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %} {% endfor %}</li>
+    
+               
+                </ul>
+                {{ post.body| truncatewords:10 }}
+                <br><br>
+                <footer><a class="btn" href="{{ post.get_absolute_url }}">Read More</a></footer>
+              </div>
+            </article>   
+          </li>
+          {% endfor %}
+        
+        
+
+    </ul>
+</section>
+</div>
+</body>
+
+
+<a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
+<!-- JAVASCRIPTS -->
+<script src="{% static 'lists/layout/scripts/jquery.min.js' %}"></script>
+<script src="{% static 'lists/layout/scripts/jquery.backtotop.js' %}"></script>
+<script src="{% static 'lists/layout/scripts/jquery.mobilemenu.js' %}"></script>
+<br><br><br><br><br><br><br>
+{% include 'blog/footer.html' %}
+
+{% endblock %}

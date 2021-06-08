@@ -1,0 +1,50 @@
+
+
+{% load static %}
+{% load blog_tags %}
+
+
+
+{% for post in losts %}
+  {% for tag in post.tags.all %}
+  <a href="{% url 'blog:post_list_by_tag' tag.slug %}">
+  {{tag.name}}
+</a>
+{% endfor %}
+{% endfor %}
+
+<center>   
+<style>
+    .backround {
+  width: 80%;
+  height: 100px;
+  position: relative;
+    }
+
+
+.text-block {
+  position: absolute;
+  bottom: 3%;
+  right: 35%;
+  background-color: white;
+  color: black;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 2%;
+}
+    
+    </style>
+
+    <div class="backround">
+    <img src="media/planet.jpg" alt="Nature" style="width:100%;">
+    <div class="text-block">
+        <h1 style="font-family:'Copperplate', 'Copperplate Gothic Light', fantasy">NATURE</h1>
+    </div>
+  </div>
+
+    
+
+</center>
+
+
+
